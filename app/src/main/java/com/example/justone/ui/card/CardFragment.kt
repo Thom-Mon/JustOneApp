@@ -58,7 +58,6 @@ class CardFragment : Fragment() {
             }
         }
 
-
         return root
     }
 
