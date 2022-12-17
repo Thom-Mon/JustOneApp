@@ -30,6 +30,11 @@ class CardViewModel : ViewModel() {
         currentCardText.value = (currentCardText.value)?.minus(1)
     }
 
+    // next step is to fill the list with values for each card on startup or on a
+    // mix button, each card should be possible to be reshuffled (maybe with limit 3 or
+    // something like that. But for testing we need full support.
+    // At button push all 13 cards should be set within the app!!!
+    // -> consider accessing them within the fragment matching the index of currentCard!
 
 
 }
