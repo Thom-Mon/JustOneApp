@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.Reader
 
 
@@ -25,7 +26,8 @@ class CardFragment : Fragment() {
     private var cardIndex: Int = 0;
     private  lateinit var appDb : AppDatabase
     private val gson = Gson()
-    private var randomList: List<Int> = listOf(0,0)
+    private var randomList: MutableList<Int> = mutableListOf(0,0)
+    private var wordList: MutableList<String> = mutableListOf("0")
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -87,13 +89,14 @@ class CardFragment : Fragment() {
                 cardViewModel.updateCardIndexNegative()
             }
             // current Card TODO: als FUnctuon unbedingt auslagern und optiimieren
-            val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
 
-            binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
+            setCardText(cardViewModel.currentCardText.value!!)
+
+            /*binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
             binding.card2Button.text = randomList[currentCardIndex*5-4].toString();
             binding.card3Button.text = randomList[currentCardIndex*5-3].toString();
             binding.card4Button.text = randomList[currentCardIndex*5-2].toString();
-            binding.card5Button.text = randomList[currentCardIndex*5-1].toString();
+            binding.card5Button.text = randomList[currentCardIndex*5-1].toString();*/
         }
 
         binding.btnArrowNext.setOnClickListener{
@@ -101,14 +104,7 @@ class CardFragment : Fragment() {
             {
                 cardViewModel.updateCardIndexPositive()
             }
-            // current Card
-            val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
-
-            binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
-            binding.card2Button.text = randomList[currentCardIndex*5-4].toString();
-            binding.card3Button.text = randomList[currentCardIndex*5-3].toString();
-            binding.card4Button.text = randomList[currentCardIndex*5-2].toString();
-            binding.card5Button.text = randomList[currentCardIndex*5-1].toString();
+            setCardText(cardViewModel.currentCardText.value!!)
         }
 
         binding.btnShuffleAllCard.setOnClickListener {
@@ -118,50 +114,48 @@ class CardFragment : Fragment() {
         // set the card words on start as shuffled
         if(randomList[0] == 0)
         {
-            binding.card1Button.text = "TUMMELUFF"
+            binding.card1Button.text = "Karten mischen!"
         }
         else
         {
-            binding.card1Button.text = randomList[0].toString();
-            binding.card2Button.text = randomList[1].toString();
-            binding.card3Button.text = randomList[2].toString();
-            binding.card4Button.text = randomList[3].toString();
-            binding.card5Button.text = randomList[4].toString();
+            setCardText(cardViewModel.currentCardText.value!!)
         }
-
 
         return root
     }
 
     private fun shuffleAllCards()
     {
-        //val rnds = (0..1500).random()
+        randomList = (0..1500).shuffled().take(65) as MutableList<Int>
+        //wordList = create a list of the words from the randomList
 
-        /*for (i in 1..13)
-        {
-            print("$i ")
-            Log.e("Card_Value", "$i Kartenwert:" + (0..1500).random())
-        }*/
+        var card: Card
 
-        randomList = (0..1500).shuffled().take(65)
-        for( number in randomList)
-        {
-            Log.e("Card_Value", "List: "+number.toString())
-        }
-
+            GlobalScope.launch(){
+                for (number in randomList)
+                {
+                    card = appDb.cardDao().findById(number)
+                }
+            }
+        //TODO: get from DB the word according to the random int, do not delete DB while test
         // current Card
         val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
 
-        binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
-        binding.card2Button.text = randomList[currentCardIndex*5-4].toString();
-        binding.card3Button.text = randomList[currentCardIndex*5-3].toString();
-        binding.card4Button.text = randomList[currentCardIndex*5-2].toString();
-        binding.card5Button.text = randomList[currentCardIndex*5-1].toString();
+        setCardText(currentCardIndex)
     }
 
     private fun shuffleSingleCard()
     {
 
+    }
+
+    private fun setCardText(currentCardIndex : Int)
+    {
+        binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
+        binding.card2Button.text = randomList[currentCardIndex*5-4].toString();
+        binding.card3Button.text = randomList[currentCardIndex*5-3].toString();
+        binding.card4Button.text = randomList[currentCardIndex*5-2].toString();
+        binding.card5Button.text = randomList[currentCardIndex*5-1].toString();
     }
 
     override fun onDestroyView() {

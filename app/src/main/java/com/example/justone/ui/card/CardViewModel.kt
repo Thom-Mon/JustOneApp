@@ -30,6 +30,11 @@ class CardViewModel : ViewModel() {
         currentCardText.value = (currentCardText.value)?.minus(1)
     }
 
+    fun getCurrentCardIndex()
+    {
+        currentCardText.value = currentCardText.value
+    }
+
     // next step is to fill the list with values for each card on startup or on a
     // mix button, each card should be possible to be reshuffled (maybe with limit 3 or
     // something like that. But for testing we need full support.
