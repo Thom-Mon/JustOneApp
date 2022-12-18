@@ -59,14 +59,10 @@ class CardFragment : Fragment() {
                 cardViewModel.updateCardIndexNegative()
             }
 
+            // example for loading from asset-folder as json-string to DB
             var loadedData = ArrayList<Card>()
-
             val file = context?.assets?.open("words.txt")?.bufferedReader()
             val fileContents = file?.readText()
-
-
-
-            Log.e("Load",fileContents.toString())
             val arrayListTutorialType = object : TypeToken<List<Card>>() {}.type
             loadedData = gson.fromJson(fileContents, arrayListTutorialType)
 
@@ -74,9 +70,10 @@ class CardFragment : Fragment() {
 
             var card: Card
             GlobalScope.launch(Dispatchers.IO){
-                //appDb.entryDao().insert(entry)
                 card = appDb.cardDao().findById(1)
                 binding.card1Button.text = card.word.toString();
+
+                // write contents from JSON-String to DB
                 appDb.cardDao().insertAll(loadedData)
             }
 
