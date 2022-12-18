@@ -1,0 +1,5 @@
+public static Card[] populateData() {
+    return new Card[] {
+            new Card(null,"Testwort","Tagexample",5)
+    };
+}
