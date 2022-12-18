@@ -53,12 +53,13 @@ class CardFragment : Fragment() {
         }
 
         // Button Listener
-        binding.btnArrowBack.setOnClickListener {
-            if(cardViewModel.currentCardText.value!! > 1)
-            {
-                cardViewModel.updateCardIndexNegative()
+        binding.btnDeleteDb.setOnClickListener {
+            GlobalScope.launch(Dispatchers.IO){
+                appDb.cardDao().deleteAll();
             }
+        }
 
+        binding.btnLoadDb.setOnClickListener{
             // example for loading from asset-folder as json-string to DB
             var loadedData = ArrayList<Card>()
             val file = context?.assets?.open("words.txt")?.bufferedReader()
@@ -66,17 +67,24 @@ class CardFragment : Fragment() {
             val arrayListTutorialType = object : TypeToken<List<Card>>() {}.type
             loadedData = gson.fromJson(fileContents, arrayListTutorialType)
 
-
-
             var card: Card
             GlobalScope.launch(Dispatchers.IO){
-                card = appDb.cardDao().findById(1)
-                binding.card1Button.text = card.word.toString();
+                //card = appDb.cardDao().findById(1)
+                //binding.card1Button.text = card.word.toString();
 
                 // write contents from JSON-String to DB
                 appDb.cardDao().insertAll(loadedData)
+                Log.e("LastEntry",appDb.cardDao().getSequenceNumber("card_table").toString())
+                //card = appDb.cardDao().findById(2);
+                //binding.textCard.text = card.id.toString()
             }
+        }
 
+        binding.btnArrowBack.setOnClickListener {
+            if(cardViewModel.currentCardText.value!! > 1)
+            {
+                cardViewModel.updateCardIndexNegative()
+            }
         }
 
         binding.btnArrowNext.setOnClickListener{

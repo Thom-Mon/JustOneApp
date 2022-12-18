@@ -25,8 +25,11 @@ interface CardDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(card: Card)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(objects: List<Card>)
+
+    @Query("DELETE FROM card_table")
+    suspend fun  deleteAll()
 
     //get last inserted id
     @Query("SELECT seq FROM sqlite_sequence WHERE name = :tableName")

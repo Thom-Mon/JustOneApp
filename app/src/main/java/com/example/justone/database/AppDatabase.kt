@@ -20,14 +20,15 @@ abstract class AppDatabase : RoomDatabase() {
             if (tempInstance != null){
                 return tempInstance
             }
+            else{
+                (context.getDatabasePath("app_database")).delete()
+            }
             synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .createFromAsset("app_database.db")
-                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance
