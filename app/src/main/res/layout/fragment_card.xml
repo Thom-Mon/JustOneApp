@@ -29,7 +29,6 @@
         android:shadowDy="6"
         android:shadowRadius="4"
         android:textAlignment="center"
-        android:visibility="invisible"
         android:textColor="@color/black"
         android:textSize="35sp"
         android:background="@drawable/border"
@@ -38,6 +37,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_arrow_next" />
 
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="card_1_button,card_2_button,card_3_button,card_4_button,card_5_button"
+        android:id="@+id/group" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/card_1_button"

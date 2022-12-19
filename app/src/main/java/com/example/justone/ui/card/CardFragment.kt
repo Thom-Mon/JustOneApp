@@ -168,34 +168,26 @@ class CardFragment : Fragment() {
     }
     //fun <T: Any> getData(clazz: KClass<T>)
 
-    private fun animationSlideInText(textView: TextView, fromLeft: Boolean = false, duration: Long = 500)
+    private fun animationSlideInText(textView: TextView, fromLeft: Boolean = false, duration: Long = 250)
     {
         textView.visibility = View.INVISIBLE
-        binding.card1Button.visibility = View.INVISIBLE
-        binding.card2Button.visibility = View.INVISIBLE
-        binding.card3Button.visibility = View.INVISIBLE
-        binding.card4Button.visibility = View.INVISIBLE
-        binding.card5Button.visibility = View.INVISIBLE
+        binding.group.visibility = View.INVISIBLE
 
         val mSlide = Slide()
         mSlide.duration = duration
 
         if(fromLeft)
         {
-            mSlide.slideEdge = Gravity.START
+            mSlide.slideEdge = Gravity.LEFT
         }
         else
         {
-            mSlide.slideEdge = Gravity.END
+            mSlide.slideEdge = Gravity.RIGHT
         }
 
         TransitionManager.beginDelayedTransition((view as ViewGroup?)!!, mSlide)
         textView.visibility = View.VISIBLE
-        binding.card1Button.visibility = View.VISIBLE
-        binding.card3Button.visibility = View.VISIBLE
-        binding.card2Button.visibility = View.VISIBLE
-        binding.card4Button.visibility = View.VISIBLE
-        binding.card5Button.visibility = View.VISIBLE
+        binding.group.visibility = View.VISIBLE
 
     }
 
