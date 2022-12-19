@@ -1,5 +1,6 @@
 package com.example.justone.database
 
+import androidx.annotation.WorkerThread
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,14 +13,19 @@ interface CardDao {
     fun getAll(): List<Card>
 
     @Query("SELECT * FROM card_table WHERE difficulty = :difficulty")
-    suspend fun getAllByDifficulty(difficulty: Int): List<Card>
+    fun getAllByDifficulty(difficulty: Int): List<Card>
 
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     @Query("SELECT * FROM card_table WHERE tags LIKE :tags")
     suspend fun getAllByTags(tags: String): List<Card>
 
     @Query("SELECT * FROM card_table WHERE id LIKE :id LIMIT 1")
-    suspend fun findById(id: Int): Card
+    fun findById(id: Int): Card
+
+    @Query("SELECT * FROM card_table WHERE id IN (:id)")
+    fun findByIds(id: List<Int>): List<Card>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

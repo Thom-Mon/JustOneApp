@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.io.Reader
 
 
@@ -89,7 +90,7 @@ class CardFragment : Fragment() {
                 cardViewModel.updateCardIndexNegative()
             }
             // current Card TODO: als FUnctuon unbedingt auslagern und optiimieren
-
+            Log.d("WordListCounter: " , wordList.size.toString())
             setCardText(cardViewModel.currentCardText.value!!)
 
             /*binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
@@ -124,23 +125,30 @@ class CardFragment : Fragment() {
         return root
     }
 
-    private fun shuffleAllCards()
-    {
-        randomList = (0..1500).shuffled().take(65) as MutableList<Int>
-        //wordList = create a list of the words from the randomList
+    private fun shuffleAllCards() {
+        // clear wordList to fill with new Words
+        wordList.clear();
+        // get randomList from cards avaiable and  take at least 80
+        randomList = (0..1500).shuffled().take(80) as MutableList<Int>
 
-        var card: Card
+        var cards: List<Card>
 
-            GlobalScope.launch(){
-                for (number in randomList)
-                {
-                    card = appDb.cardDao().findById(number)
-                }
+        val thread = Thread {
+            cards = appDb.cardDao().findByIds(randomList)
+
+            for (i in 1..65)
+            {
+                wordList.add(cards[i].word.toString())
             }
-        //TODO: get from DB the word according to the random int, do not delete DB while test
-        // current Card
-        val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
+        }
+        thread.start()
 
+        // TODO: Maybe there is a better way to update the cards but I did not find it yet
+        // Thread.sleep will become unnecessary if the shuffle all cards in in another fragment
+        Thread.sleep(500)
+
+        // current Card to set card text appropiately
+        val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
         setCardText(currentCardIndex)
     }
 
@@ -151,11 +159,11 @@ class CardFragment : Fragment() {
 
     private fun setCardText(currentCardIndex : Int)
     {
-        binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
-        binding.card2Button.text = randomList[currentCardIndex*5-4].toString();
-        binding.card3Button.text = randomList[currentCardIndex*5-3].toString();
-        binding.card4Button.text = randomList[currentCardIndex*5-2].toString();
-        binding.card5Button.text = randomList[currentCardIndex*5-1].toString();
+        binding.card1Button.text = wordList[currentCardIndex*5-5].toString();
+        binding.card2Button.text = wordList[currentCardIndex*5-4].toString();
+        binding.card3Button.text = wordList[currentCardIndex*5-3].toString();
+        binding.card4Button.text = wordList[currentCardIndex*5-2].toString();
+        binding.card5Button.text = wordList[currentCardIndex*5-1].toString();
     }
 
     override fun onDestroyView() {
