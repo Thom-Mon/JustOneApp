@@ -67,7 +67,10 @@
         android:textSize="@dimen/card_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
+        android:shadowColor="#242c7f"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="4"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -81,6 +84,10 @@
         android:layout_marginEnd="@dimen/card_margin_start_end"
         android:text="@string/text_placeholder_card"
         android:textSize="@dimen/card_text_size"
+        android:shadowColor="#242c7f"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_1_button" />
@@ -89,6 +96,10 @@
         android:id="@+id/card_3_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:shadowColor="#242c7f"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="4"
         android:backgroundTint="@color/color_card_button"
         android:layout_marginStart="@dimen/card_margin_start_end"
         android:layout_marginTop="16dp"
@@ -103,6 +114,10 @@
         android:id="@+id/card_4_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:shadowColor="#242c7f"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="4"
         android:backgroundTint="@color/color_card_button"
         android:layout_marginStart="@dimen/card_margin_start_end"
         android:layout_marginTop="16dp"
@@ -117,6 +132,10 @@
         android:id="@+id/card_5_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:shadowColor="#242c7f"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="4"
         android:backgroundTint="@color/color_card_button"
         android:layout_marginStart="@dimen/card_margin_start_end"
         android:layout_marginTop="16dp"
@@ -168,11 +187,11 @@
 
     <ImageButton
         android:id="@+id/btn_arrow_back"
-        android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:background="@null"
         android:src="@drawable/ic_baseline_arrow_circle_left_50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_5_button" />
