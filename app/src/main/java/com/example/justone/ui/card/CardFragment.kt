@@ -1,13 +1,18 @@
 package com.example.justone.ui.card
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.example.justone.database.AppDatabase
 import com.example.justone.database.Card
 import com.example.justone.databinding.FragmentCardBinding
@@ -16,9 +21,6 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.Reader
 
 
 class CardFragment : Fragment() {
@@ -88,24 +90,23 @@ class CardFragment : Fragment() {
             if(cardViewModel.currentCardText.value!! > 1)
             {
                 cardViewModel.updateCardIndexNegative()
+                animationSlideInText(binding.labelCurrentCard,true)
             }
             // current Card TODO: als FUnctuon unbedingt auslagern und optiimieren
-            Log.d("WordListCounter: " , wordList.size.toString())
+
             setCardText(cardViewModel.currentCardText.value!!)
 
-            /*binding.card1Button.text = randomList[currentCardIndex*5-5].toString();
-            binding.card2Button.text = randomList[currentCardIndex*5-4].toString();
-            binding.card3Button.text = randomList[currentCardIndex*5-3].toString();
-            binding.card4Button.text = randomList[currentCardIndex*5-2].toString();
-            binding.card5Button.text = randomList[currentCardIndex*5-1].toString();*/
+
         }
 
         binding.btnArrowNext.setOnClickListener{
             if(cardViewModel.currentCardText.value!! < 13)
             {
                 cardViewModel.updateCardIndexPositive()
+                animationSlideInText(binding.labelCurrentCard)
             }
             setCardText(cardViewModel.currentCardText.value!!)
+
         }
 
         binding.btnShuffleAllCard.setOnClickListener {
@@ -144,7 +145,7 @@ class CardFragment : Fragment() {
         thread.start()
 
         // TODO: Maybe there is a better way to update the cards but I did not find it yet
-        // Thread.sleep will become unnecessary if the shuffle all cards in in another fragment
+        // Thread.sleep will become unnecessary if the shuffle all cards is in another fragment
         Thread.sleep(500)
 
         // current Card to set card text appropiately
@@ -165,6 +166,39 @@ class CardFragment : Fragment() {
         binding.card4Button.text = wordList[currentCardIndex*5-2].toString();
         binding.card5Button.text = wordList[currentCardIndex*5-1].toString();
     }
+    //fun <T: Any> getData(clazz: KClass<T>)
+
+    private fun animationSlideInText(textView: TextView, fromLeft: Boolean = false, duration: Long = 500)
+    {
+        textView.visibility = View.INVISIBLE
+        binding.card1Button.visibility = View.INVISIBLE
+        binding.card2Button.visibility = View.INVISIBLE
+        binding.card3Button.visibility = View.INVISIBLE
+        binding.card4Button.visibility = View.INVISIBLE
+        binding.card5Button.visibility = View.INVISIBLE
+
+        val mSlide = Slide()
+        mSlide.duration = duration
+
+        if(fromLeft)
+        {
+            mSlide.slideEdge = Gravity.START
+        }
+        else
+        {
+            mSlide.slideEdge = Gravity.END
+        }
+
+        TransitionManager.beginDelayedTransition((view as ViewGroup?)!!, mSlide)
+        textView.visibility = View.VISIBLE
+        binding.card1Button.visibility = View.VISIBLE
+        binding.card3Button.visibility = View.VISIBLE
+        binding.card2Button.visibility = View.VISIBLE
+        binding.card4Button.visibility = View.VISIBLE
+        binding.card5Button.visibility = View.VISIBLE
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

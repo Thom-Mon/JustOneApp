@@ -24,12 +24,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_current_card"
+        android:shadowColor="#938a89"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="4"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:visibility="invisible"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="@+id/btn_arrow_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_arrow_next" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/card_1_button"

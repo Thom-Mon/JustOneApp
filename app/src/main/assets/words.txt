@@ -662,7 +662,7 @@
 {"difficulty":0,"word":"Kette","id":null,"tags":"0"},
 {"difficulty":0,"word":"Musik","id":null,"tags":"0"},
 {"difficulty":0,"word":"Schnecke","id":null,"tags":"0"},
-{"difficulty":0,"word":"Trakto","id":null,"tags":"0"},
+{"difficulty":0,"word":"Traktor","id":null,"tags":"0"},
 {"difficulty":0,"word":"Brille","id":null,"tags":"0"},
 {"difficulty":0,"word":"Gans","id":null,"tags":"0"},
 {"difficulty":0,"word":"Kinder","id":null,"tags":"0"},
