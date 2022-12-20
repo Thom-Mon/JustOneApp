@@ -1,6 +1,5 @@
 package com.example.justone.ui.card
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.Slide
@@ -56,6 +54,9 @@ class CardFragment : Fragment() {
         }
         cardViewModel.currentCardText.observe(viewLifecycleOwner) {
             currentCardLabel.text = it.toString()
+        }
+        cardViewModel.wordList.observe(viewLifecycleOwner){
+            //binding.card2Button.text = it.toString()
         }
 
         // Button Listener
@@ -110,23 +111,26 @@ class CardFragment : Fragment() {
         }
 
         binding.btnShuffleAllCard.setOnClickListener {
-            shuffleAllCards()
+            shuffleAllCards(cardViewModel)
         }
 
         // set the card words on start as shuffled
-        if(randomList[0] == 0)
+        if(cardViewModel.wordList.value?.size!! > 1)
         {
-            binding.card1Button.text = "Karten mischen!"
+            // if there is data within the viewModel-wordList -> save it to fragment wordList
+            wordList = cardViewModel.wordList.value as MutableList<String>
+            //val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
+            setCardText(cardViewModel.currentCardText.value!!)
         }
         else
         {
-            setCardText(cardViewModel.currentCardText.value!!)
+            binding.card3Button.text = "----------" //DEBUG
         }
 
         return root
     }
 
-    private fun shuffleAllCards() {
+    private fun shuffleAllCards(cardViewModel: CardViewModel) {
         // clear wordList to fill with new Words
         wordList.clear();
         // get randomList from cards avaiable and  take at least 80
@@ -151,6 +155,7 @@ class CardFragment : Fragment() {
         // current Card to set card text appropiately
         val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
         setCardText(currentCardIndex)
+        cardViewModel.addToWordList(wordList)
     }
 
     private fun shuffleSingleCard()

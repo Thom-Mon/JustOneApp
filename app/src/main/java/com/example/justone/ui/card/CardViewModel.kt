@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 
 class CardViewModel : ViewModel() {
 
-    var currentCardText = MutableLiveData<Int>()
+    var currentCardText   =  MutableLiveData<Int>()
+    var wordList          =  MutableLiveData<List<String>>() //= mutableListOf("1")
 
     init
     {
         currentCardText.value = 4;
+        wordList.value = ArrayList()
     }
     private val _text = MutableLiveData<String>().apply {
         value = "This is Card Fragment"
@@ -30,10 +32,12 @@ class CardViewModel : ViewModel() {
         currentCardText.value = (currentCardText.value)?.minus(1)
     }
 
-    fun getCurrentCardIndex()
+    fun addToWordList(word: MutableList<String>)
     {
-        currentCardText.value = currentCardText.value
+        wordList.value = word
     }
+
+
 
     // next step is to fill the list with values for each card on startup or on a
     // mix button, each card should be possible to be reshuffled (maybe with limit 3 or
