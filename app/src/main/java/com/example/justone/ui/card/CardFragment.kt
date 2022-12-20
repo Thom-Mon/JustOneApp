@@ -74,16 +74,10 @@ class CardFragment : Fragment() {
             val arrayListTutorialType = object : TypeToken<List<Card>>() {}.type
             loadedData = gson.fromJson(fileContents, arrayListTutorialType)
 
-            var card: Card
             GlobalScope.launch(Dispatchers.IO){
-                //card = appDb.cardDao().findById(1)
-                //binding.card1Button.text = card.word.toString();
-
                 // write contents from JSON-String to DB
                 appDb.cardDao().insertAll(loadedData)
                 Log.e("LastEntry",appDb.cardDao().getSequenceNumber("card_table").toString())
-                //card = appDb.cardDao().findById(2);
-                //binding.textCard.text = card.id.toString()
             }
         }
 
@@ -93,11 +87,7 @@ class CardFragment : Fragment() {
                 cardViewModel.updateCardIndexNegative()
                 animationSlideInText(binding.labelCurrentCard,true)
             }
-            // current Card TODO: als FUnctuon unbedingt auslagern und optiimieren
-
             setCardText(cardViewModel.currentCardText.value!!)
-
-
         }
 
         binding.btnArrowNext.setOnClickListener{
@@ -154,7 +144,10 @@ class CardFragment : Fragment() {
 
         // current Card to set card text appropiately
         val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
+
+        // set the cards according to fragment wordlist
         setCardText(currentCardIndex)
+        // save fragment wordlist to viewmodel to persist data
         cardViewModel.addToWordList(wordList)
     }
 
@@ -171,7 +164,6 @@ class CardFragment : Fragment() {
         binding.card4Button.text = wordList[currentCardIndex*5-2].toString();
         binding.card5Button.text = wordList[currentCardIndex*5-1].toString();
     }
-    //fun <T: Any> getData(clazz: KClass<T>)
 
     private fun animationSlideInText(textView: TextView, fromLeft: Boolean = false, duration: Long = 250)
     {
@@ -193,9 +185,7 @@ class CardFragment : Fragment() {
         TransitionManager.beginDelayedTransition((view as ViewGroup?)!!, mSlide)
         textView.visibility = View.VISIBLE
         binding.group.visibility = View.VISIBLE
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
