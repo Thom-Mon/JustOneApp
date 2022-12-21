@@ -12,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/cards_background"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,8 +53,55 @@
     <androidx.constraintlayout.widget.Group
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="background_Cards,card_1_button,card_2_button,card_3_button,card_4_button,card_5_button"
+        app:constraint_referenced_ids="card_1_number,card_2_number,card_3_number,card_4_number,card_5_number,background_Cards,card_1_button,card_2_button,card_3_button,card_4_button,card_5_button"
         android:id="@+id/group" />
+
+    <TextView
+        android:id="@+id/card_1_number"
+        style="@style/card_number"
+        android:text="1"
+        android:textColor="@color/color_card_1"
+        app:layout_constraintBottom_toBottomOf="@+id/card_1_button"
+        app:layout_constraintEnd_toStartOf="@+id/card_1_button"
+        app:layout_constraintTop_toTopOf="@+id/card_1_button"/>
+
+    <TextView
+        android:id="@+id/card_2_number"
+        style="@style/card_number"
+        android:text="2"
+        android:textColor="@color/color_card_2"
+        app:layout_constraintBottom_toBottomOf="@+id/card_2_button"
+        app:layout_constraintEnd_toStartOf="@+id/card_2_button"
+        app:layout_constraintTop_toTopOf="@+id/card_2_button"/>
+
+    <TextView
+        android:id="@+id/card_3_number"
+        style="@style/card_number"
+        android:text="3"
+        android:textColor="@color/color_card_3"
+
+        app:layout_constraintBottom_toBottomOf="@+id/card_3_button"
+        app:layout_constraintEnd_toStartOf="@+id/card_3_button"
+        app:layout_constraintTop_toTopOf="@+id/card_3_button"/>
+
+    <TextView
+        android:id="@+id/card_4_number"
+        style="@style/card_number"
+        android:text="4"
+        android:textColor="@color/color_card_4"
+        app:layout_constraintBottom_toBottomOf="@+id/card_4_button"
+        app:layout_constraintEnd_toStartOf="@+id/card_4_button"
+        app:layout_constraintTop_toTopOf="@+id/card_4_button"/>
+
+    <TextView
+        android:id="@+id/card_5_number"
+        style="@style/card_number"
+        android:text="5"
+        android:textColor="@color/color_card_5"
+        app:layout_constraintBottom_toBottomOf="@+id/card_5_button"
+        app:layout_constraintEnd_toStartOf="@+id/card_5_button"
+        app:layout_constraintTop_toTopOf="@+id/card_5_button"/>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/card_1_button"
@@ -61,6 +109,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/color_card_1"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <com.google.android.material.button.MaterialButton
@@ -68,6 +117,7 @@
         style="@style/card_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:strokeColor="@color/color_card_2"
         app:layout_constraintTop_toBottomOf="@+id/card_1_button" />
 
     <com.google.android.material.button.MaterialButton
@@ -75,6 +125,7 @@
         style="@style/card_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:strokeColor="@color/color_card_3"
         app:layout_constraintTop_toBottomOf="@+id/card_2_button" />
 
     <com.google.android.material.button.MaterialButton
@@ -82,6 +133,7 @@
         style="@style/card_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:strokeColor="@color/color_card_4"
         app:layout_constraintTop_toBottomOf="@+id/card_3_button" />
 
     <com.google.android.material.button.MaterialButton
@@ -89,6 +141,7 @@
         style="@style/card_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:strokeColor="@color/color_card_5"
         app:layout_constraintTop_toBottomOf="@+id/card_4_button"  />
 
     <com.google.android.material.button.MaterialButton

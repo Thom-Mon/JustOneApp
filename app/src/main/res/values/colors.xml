@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_card_button">#3e4ce8</color>
     <color name="color_main_blue">#ea2a47</color>
+    <color name="color_card_1">#328DA8</color>
+    <color name="color_card_2">#349B43</color>
+    <color name="color_card_3">#A93139</color>
+    <color name="color_card_4">#EA8C31</color>
+    <color name="color_card_5">#d6d631</color>
 </resources>
