@@ -135,18 +135,6 @@
         app:layout_constraintTop_toBottomOf="@+id/card_4_button"  />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_loadDb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/text_load_database"
-        android:textSize="@dimen/btn_text_size"
-        app:layout_constraintBottom_toTopOf="@+id/btn_shuffleAllCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_shuffleAllCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

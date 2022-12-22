@@ -12,7 +12,7 @@ class CardViewModel : ViewModel() {
 
     init
     {
-        currentCardText.value = 4;
+        currentCardText.value = 1;
         wordList.value = ArrayList()
         chosenCardIndex.value = arrayListOf(5,5,5,5,5,5,5,5,5,5,5,5,5,5)
     }

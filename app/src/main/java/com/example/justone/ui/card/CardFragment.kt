@@ -73,28 +73,18 @@ class CardFragment : Fragment() {
         }
 
         // getting all Buttons and add a listener to them
-        cardButtons = arrayOf<MaterialButton>(binding.card1Button,binding.card2Button,binding.card3Button,binding.card4Button,binding.card5Button)
+        cardButtons = arrayOf<MaterialButton>(
+                                                binding.card1Button,
+                                                binding.card2Button,
+                                                binding.card3Button,
+                                                binding.card4Button,
+                                                binding.card5Button)
+
         for((index,cardButton) in cardButtons.withIndex())
         {
             cardButton.setOnClickListener {
                 cardViewModel.updateChosenCards(chosenCard)
-                updateCardColor(cardButton)
-                setCardColor(cardViewModel.currentCardText.value!!,index, cardViewModel)
-            }
-        }
-
-        binding.btnLoadDb.setOnClickListener{
-            // example for loading from asset-folder as json-string to DB
-            var loadedData = ArrayList<Card>()
-            val file = context?.assets?.open("words.txt")?.bufferedReader()
-            val fileContents = file?.readText()
-            val arrayListTutorialType = object : TypeToken<List<Card>>() {}.type
-            loadedData = gson.fromJson(fileContents, arrayListTutorialType)
-
-            GlobalScope.launch(Dispatchers.IO){
-                // write contents from JSON-String to DB
-                appDb.cardDao().insertAll(loadedData)
-                Log.e("LastEntry",appDb.cardDao().getSequenceNumber("card_table").toString())
+                setCardColor(cardViewModel.currentCardText.value!!,index, cardViewModel, cardButton)
             }
         }
 
@@ -208,16 +198,19 @@ class CardFragment : Fragment() {
 
     }
 
-    private fun setCardColor(currentCardIndex: Int, index: Int, cardViewModel: CardViewModel)
+    private fun setCardColor(currentCardIndex: Int,index: Int,cardViewModel: CardViewModel,cardButton: MaterialButton)
     {
-        //chosenCard[currentCardIndex] = 3
-        //Log.i("chosen", "Kartenindex: "+chosenCard[currentCardIndex].toString()+ " Begriffsindex: " + index)
-        Log.i("chosen", "Kartenindex: "+  currentCardIndex.toString() + " Begriffsindex: " + index)
+        cardButton.setBackgroundColor(resources.getColor(R.color.color_selected_card))
+        cardButton.setTextColor(Color.WHITE)
+
+        for(cardBtn in cardButtons)
+        {
+            if(cardBtn == cardButton) {continue}
+            cardBtn.setBackgroundColor(Color.WHITE)
+            cardBtn.setTextColor(Color.BLACK)
+        }
 
         chosenCard[currentCardIndex-1] = index
-
-        Log.i("chosen", "chosenCard at Index = " + chosenCard[currentCardIndex-1])
-
         cardViewModel.updateChosenCards(chosenCard)
     }
 
@@ -242,20 +235,6 @@ class CardFragment : Fragment() {
         TransitionManager.beginDelayedTransition((view as ViewGroup?)!!, mSlide)
         textView.visibility = View.VISIBLE
         binding.group.visibility = View.VISIBLE
-    }
-
-    private fun updateCardColor(cardButton: MaterialButton)
-    {
-
-        cardButton.setBackgroundColor(resources.getColor(R.color.color_selected_card))
-        cardButton.setTextColor(Color.WHITE)
-
-        for(cardBtn in cardButtons)
-        {
-            if(cardBtn == cardButton) {continue}
-            cardBtn.setBackgroundColor(Color.WHITE)
-            cardBtn.setTextColor(Color.BLACK)
-        }
     }
 
     override fun onDestroyView() {
