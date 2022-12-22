@@ -12,6 +12,9 @@ interface CardDao {
     @Query("SELECT * FROM card_table")
     fun getAll(): List<Card>
 
+    @Query("SELECT COUNT(id) FROM card_table")
+    fun getTotalCount(): Int
+
     @Query("SELECT * FROM card_table WHERE difficulty = :difficulty")
     fun getAllByDifficulty(difficulty: Int): List<Card>
 
@@ -23,6 +26,8 @@ interface CardDao {
 
     @Query("SELECT COUNT(id) FROM card_table WHERE tags LIKE :tags")
     fun getTagCount(tags: String): Int
+
+
 
     @Query("SELECT * FROM card_table WHERE id LIKE :id LIMIT 1")
     fun findById(id: Int): Card

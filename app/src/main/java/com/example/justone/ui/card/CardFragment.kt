@@ -206,7 +206,6 @@ class CardFragment : Fragment() {
                 wordList.add(cards[i].word.toString())
             }
         }
-        //var newWordList: MutableList<String> = mutableListOf("0")
         christmasThread.start()
 
         // TODO: Maybe there is a better way to update the cards but I did not find it yet
