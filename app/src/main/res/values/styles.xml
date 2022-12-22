@@ -11,9 +11,9 @@
         <item name="android:text">@string/text_placeholder_card</item>
         <item name="strokeWidth">4sp</item>
         <item name="android:shadowColor">#898989</item>
-        <item name="android:shadowDx">4</item>
-        <item name="android:shadowDy">4</item>
-        <item name="android:shadowRadius">4</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">2</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
     <style name="card_number">
@@ -21,6 +21,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/card_number_size</item>=
         <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:shadowColor">@color/black</item>
         <item name="android:shadowDx">4</item>
         <item name="android:shadowDy">4</item>

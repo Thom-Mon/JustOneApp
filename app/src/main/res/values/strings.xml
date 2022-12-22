@@ -12,7 +12,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_card">Karten</string>
     <string name="text_headline_card">Karten</string>
-    <string name="text_placeholder_card">Kartenbegriff</string>
+    <string name="text_placeholder_card">Begriff</string>
     <string name="label_current_card">CurrentCard</string>
     <string name="text_load_database">Lade DB from Json</string>
     <string name="text_delete_database">delete DB</string>

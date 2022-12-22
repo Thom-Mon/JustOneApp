@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/background_Cards"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="550dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -19,18 +19,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/label_current_card"
@@ -51,10 +39,10 @@
         app:layout_constraintTop_toTopOf="@+id/btn_arrow_next" />
 
     <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="card_1_number,card_2_number,card_3_number,card_4_number,card_5_number,background_Cards,card_1_button,card_2_button,card_3_button,card_4_button,card_5_button"
-        android:id="@+id/group" />
+        app:constraint_referenced_ids="card_1_number,card_2_number,card_3_number,card_4_number,card_5_number,background_Cards,card_1_button,card_2_button,card_3_button,card_4_button,card_5_button" />
 
     <TextView
         android:id="@+id/card_1_number"
@@ -97,6 +85,7 @@
         android:id="@+id/card_5_number"
         style="@style/card_number"
         android:text="5"
+        android:padding="2sp"
         android:textColor="@color/color_card_5"
         app:layout_constraintBottom_toBottomOf="@+id/card_5_button"
         app:layout_constraintEnd_toStartOf="@+id/card_5_button"
@@ -106,6 +95,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/card_1_button"
         style="@style/card_button"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -145,43 +135,28 @@
         app:layout_constraintTop_toBottomOf="@+id/card_4_button"  />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_deleteDb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/text_delete_database"
-        android:textSize="@dimen/card_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_current_card" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_loadDb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/text_load_database"
-        android:textSize="@dimen/card_text_size"
+        android:textSize="@dimen/btn_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/btn_shuffleAllCard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_deleteDb" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_shuffleAllCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/text_shuffleAll"
-        android:textSize="@dimen/card_text_size"
+        android:textSize="@dimen/btn_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_loadDb" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/btn_arrow_back"
@@ -204,6 +179,30 @@
         android:src="@drawable/ic_baseline_arrow_circle_right_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_5_button" />
+
+    <ImageButton
+        android:id="@+id/btn_correct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="75dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_check_circle_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_current_card" />
+
+    <ImageButton
+        android:id="@+id/btn_wrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_cancel_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_current_card" />
 
 
 

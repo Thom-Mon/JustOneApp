@@ -1,5 +1,6 @@
 package com.example.justone.ui.card
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -11,9 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
+import com.example.justone.R
 import com.example.justone.database.AppDatabase
 import com.example.justone.database.Card
 import com.example.justone.databinding.FragmentCardBinding
+import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +32,8 @@ class CardFragment : Fragment() {
     private val gson = Gson()
     private var randomList: MutableList<Int> = mutableListOf(0,0)
     private var wordList: MutableList<String> = mutableListOf("0")
+    private var cardButtons = arrayOf<MaterialButton>()
+    private var chosenCard:  MutableList<Int> = mutableListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,12 +50,12 @@ class CardFragment : Fragment() {
         _binding = FragmentCardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textCard
+        //val textView: TextView = binding.textCard
         val currentCardLabel: TextView = binding.labelCurrentCard
         appDb = AppDatabase.getDatabase(requireContext())
 
         cardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            //textView.text = it
         }
         cardViewModel.currentCardText.observe(viewLifecycleOwner) {
             currentCardLabel.text = it.toString()
@@ -59,10 +64,22 @@ class CardFragment : Fragment() {
             //binding.card2Button.text = it.toString()
         }
 
-        // Button Listener
-        binding.btnDeleteDb.setOnClickListener {
-            GlobalScope.launch(Dispatchers.IO){
-                appDb.cardDao().deleteAll();
+        //CORRECT AND WRONG BUTTON
+        binding.btnCorrect.setOnClickListener {
+
+        }
+        binding.btnWrong.setOnClickListener {
+
+        }
+
+        // getting all Buttons and add a listener to them
+        cardButtons = arrayOf<MaterialButton>(binding.card1Button,binding.card2Button,binding.card3Button,binding.card4Button,binding.card5Button)
+        for((index,cardButton) in cardButtons.withIndex())
+        {
+            cardButton.setOnClickListener {
+                cardViewModel.updateChosenCards(chosenCard)
+                updateCardColor(cardButton)
+                setCardColor(cardViewModel.currentCardText.value!!,index, cardViewModel)
             }
         }
 
@@ -87,7 +104,10 @@ class CardFragment : Fragment() {
                 cardViewModel.updateCardIndexNegative()
                 animationSlideInText(binding.labelCurrentCard,true)
             }
+            chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
             setCardText(cardViewModel.currentCardText.value!!)
+            setCardColors(cardViewModel.currentCardText.value!!)
+
         }
 
         binding.btnArrowNext.setOnClickListener{
@@ -95,9 +115,11 @@ class CardFragment : Fragment() {
             {
                 cardViewModel.updateCardIndexPositive()
                 animationSlideInText(binding.labelCurrentCard)
-            }
-            setCardText(cardViewModel.currentCardText.value!!)
 
+            }
+            chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
+            setCardText(cardViewModel.currentCardText.value!!)
+            setCardColors(cardViewModel.currentCardText.value!!)
         }
 
         binding.btnShuffleAllCard.setOnClickListener {
@@ -109,12 +131,16 @@ class CardFragment : Fragment() {
         {
             // if there is data within the viewModel-wordList -> save it to fragment wordList
             wordList = cardViewModel.wordList.value as MutableList<String>
+            chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
             //val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
             setCardText(cardViewModel.currentCardText.value!!)
+            setCardColors(cardViewModel.currentCardText.value!!)
+            Log.i("chosenSize After", chosenCard.size.toString())
         }
         else
         {
             binding.card3Button.text = "----------" //DEBUG
+            Log.i("chosenSize Before", chosenCard.size.toString())
         }
 
         return root
@@ -165,6 +191,38 @@ class CardFragment : Fragment() {
         binding.card5Button.text = wordList[currentCardIndex*5-1].toString();
     }
 
+    private fun setCardColors(currentCardIndex: Int)
+    {
+        for((index,cardIndex) in chosenCard.withIndex())
+        {
+            Log.i("chosen", "Karte: " + index.toString() + " = " + chosenCard[index] )
+        }
+
+        for(cardBtn in cardButtons)
+        {
+            cardBtn.setBackgroundColor(Color.WHITE)
+            cardBtn.setTextColor(Color.BLACK)
+        }
+
+        cardButtons[chosenCard[currentCardIndex-1]].setBackgroundColor(resources.getColor(R.color.color_selected_card))
+        cardButtons[chosenCard[currentCardIndex-1]].setTextColor(Color.WHITE)
+
+    }
+
+    private fun setCardColor(currentCardIndex: Int, index: Int, cardViewModel: CardViewModel)
+    {
+        //chosenCard[currentCardIndex] = 3
+        //Log.i("chosen", "Kartenindex: "+chosenCard[currentCardIndex].toString()+ " Begriffsindex: " + index)
+        Log.i("chosen", "Kartenindex: "+  currentCardIndex.toString() + " Begriffsindex: " + index)
+
+        chosenCard[currentCardIndex-1] = index
+
+        Log.i("chosen", "chosenCard at Index = " + chosenCard[currentCardIndex-1])
+
+        cardViewModel.updateChosenCards(chosenCard)
+    }
+
+
     private fun animationSlideInText(textView: TextView, fromLeft: Boolean = false, duration: Long = 250)
     {
         textView.visibility = View.INVISIBLE
@@ -185,6 +243,20 @@ class CardFragment : Fragment() {
         TransitionManager.beginDelayedTransition((view as ViewGroup?)!!, mSlide)
         textView.visibility = View.VISIBLE
         binding.group.visibility = View.VISIBLE
+    }
+
+    private fun updateCardColor(cardButton: MaterialButton)
+    {
+
+        cardButton.setBackgroundColor(resources.getColor(R.color.color_selected_card))
+        cardButton.setTextColor(Color.WHITE)
+
+        for(cardBtn in cardButtons)
+        {
+            if(cardBtn == cardButton) {continue}
+            cardBtn.setBackgroundColor(Color.WHITE)
+            cardBtn.setTextColor(Color.BLACK)
+        }
     }
 
     override fun onDestroyView() {

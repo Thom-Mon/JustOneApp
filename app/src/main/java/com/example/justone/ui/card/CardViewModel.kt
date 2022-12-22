@@ -8,11 +8,13 @@ class CardViewModel : ViewModel() {
 
     var currentCardText   =  MutableLiveData<Int>()
     var wordList          =  MutableLiveData<List<String>>() //= mutableListOf("1")
+    var chosenCardIndex   =  MutableLiveData<List<Int>>()
 
     init
     {
         currentCardText.value = 4;
         wordList.value = ArrayList()
+        chosenCardIndex.value = arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0)
     }
     private val _text = MutableLiveData<String>().apply {
         value = "This is Card Fragment"
@@ -35,6 +37,11 @@ class CardViewModel : ViewModel() {
     fun addToWordList(word: MutableList<String>)
     {
         wordList.value = word
+    }
+
+    fun updateChosenCards(indexList: MutableList<Int>)
+    {
+        chosenCardIndex.value = indexList
     }
 
     // next step is to fill the list with values for each card on startup or on a
