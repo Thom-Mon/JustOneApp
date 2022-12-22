@@ -19,7 +19,10 @@ interface CardDao {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     @Query("SELECT * FROM card_table WHERE tags LIKE :tags")
-    suspend fun getAllByTags(tags: String): List<Card>
+    fun getAllByTags(tags: String): List<Card>
+
+    @Query("SELECT COUNT(id) FROM card_table WHERE tags LIKE :tags")
+    fun getTagCount(tags: String): Int
 
     @Query("SELECT * FROM card_table WHERE id LIKE :id LIMIT 1")
     fun findById(id: Int): Card

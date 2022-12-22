@@ -69,6 +69,10 @@ class CardFragment : Fragment() {
             setCardResult(false, cardViewModel)
         }
 
+        binding.card1Number.setOnClickListener {
+            getChristmasCards(cardViewModel)
+        }
+
         // getting all Buttons and add a listener to them
         cardButtons = arrayOf<MaterialButton>(
                                                 binding.card1Button,
@@ -186,9 +190,52 @@ class CardFragment : Fragment() {
         cardViewModel.updateCardResult(resultList)
     }
 
+
+    private fun getChristmasCards(cardViewModel: CardViewModel)
+    {
+        wordList.clear();
+        var cards: List<Card>
+
+        val christmasThread = Thread {
+            cards = appDb.cardDao().getAllByTags("Weihnachten")
+            val cards_count = appDb.cardDao().getTagCount("Weihnachten")
+            Log.i("COunt", cards_count.toString())
+
+            for (i in 0..cards_count-1)
+            {
+                wordList.add(cards[i].word.toString())
+            }
+        }
+        //var newWordList: MutableList<String> = mutableListOf("0")
+        christmasThread.start()
+
+        // TODO: Maybe there is a better way to update the cards but I did not find it yet
+        // Thread.sleep will become unnecessary if the shuffle all cards is in another fragment
+        Thread.sleep(500)
+
+        shuffle(wordList)
+
+        // current Card to set card text appropiately
+        val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
+
+        // set the cards according to fragment wordlist
+        setCardText(currentCardIndex)
+        // save fragment wordlist to viewmodel to persist data
+        cardViewModel.addToWordList(wordList)
+    }
+
+    // helper function
+    fun <T> shuffle(list: MutableList<T>) {
+        list.shuffle()
+    }
+
     private fun shuffleAllCards(cardViewModel: CardViewModel) {
         // clear wordList to fill with new Words
         wordList.clear();
+
+        // need to get the size of the roomdb here! from thread
+
+
         // get randomList from cards avaiable and  take at least 80
         randomList = (0..1500).shuffled().take(80) as MutableList<Int>
 
