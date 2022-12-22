@@ -14,7 +14,7 @@ class CardViewModel : ViewModel() {
     {
         currentCardText.value = 4;
         wordList.value = ArrayList()
-        chosenCardIndex.value = arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+        chosenCardIndex.value = arrayListOf(5,5,5,5,5,5,5,5,5,5,5,5,5,5)
     }
     private val _text = MutableLiveData<String>().apply {
         value = "This is Card Fragment"

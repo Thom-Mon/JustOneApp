@@ -33,7 +33,7 @@ class CardFragment : Fragment() {
     private var randomList: MutableList<Int> = mutableListOf(0,0)
     private var wordList: MutableList<String> = mutableListOf("0")
     private var cardButtons = arrayOf<MaterialButton>()
-    private var chosenCard:  MutableList<Int> = mutableListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+    private var chosenCard:  MutableList<Int> = mutableListOf(5,5,5,5,5,5,5,5,5,5,5,5,5,5)
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -193,17 +193,16 @@ class CardFragment : Fragment() {
 
     private fun setCardColors(currentCardIndex: Int)
     {
-        for((index,cardIndex) in chosenCard.withIndex())
-        {
-            Log.i("chosen", "Karte: " + index.toString() + " = " + chosenCard[index] )
-        }
-
         for(cardBtn in cardButtons)
         {
             cardBtn.setBackgroundColor(Color.WHITE)
             cardBtn.setTextColor(Color.BLACK)
         }
 
+        if(chosenCard[currentCardIndex-1] == 5)
+        {
+            return
+        }
         cardButtons[chosenCard[currentCardIndex-1]].setBackgroundColor(resources.getColor(R.color.color_selected_card))
         cardButtons[chosenCard[currentCardIndex-1]].setTextColor(Color.WHITE)
 
