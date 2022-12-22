@@ -98,7 +98,7 @@ class CardFragment : Fragment() {
             chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
             setCardText(cardViewModel.currentCardText.value!!)
             setCardColors(cardViewModel.currentCardText.value!!)
-
+            showCardResult(cardViewModel.currentCardText.value!!,cardViewModel)
         }
 
         binding.btnArrowNext.setOnClickListener{
@@ -114,6 +114,7 @@ class CardFragment : Fragment() {
             chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
             setCardText(cardViewModel.currentCardText.value!!)
             setCardColors(cardViewModel.currentCardText.value!!)
+            showCardResult(cardViewModel.currentCardText.value!!,cardViewModel)
         }
 
         binding.btnShuffleAllCard.setOnClickListener {
@@ -130,6 +131,7 @@ class CardFragment : Fragment() {
             //val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
             setCardText(cardViewModel.currentCardText.value!!)
             setCardColors(cardViewModel.currentCardText.value!!)
+            showCardResult(cardViewModel.currentCardText.value!!, cardViewModel)
             Log.i("chosenSize After", chosenCard.size.toString())
         }
         else
@@ -139,6 +141,23 @@ class CardFragment : Fragment() {
         }
 
         return root
+    }
+
+    private fun showCardResult(value: Int, cardViewModel: CardViewModel)
+    {
+        if(cardViewModel.currentCardText.value!!-1 !in resultList.indices)
+        {
+            binding.backgroundCards.setImageResource(R.drawable.cards_background)
+            return
+        }
+        if(resultList[cardViewModel.currentCardText.value!!-1])
+        {
+            binding.backgroundCards.setImageResource(R.drawable.cards_background_right)
+        }
+        else
+        {
+            binding.backgroundCards.setImageResource(R.drawable.cards_background_wrong)
+        }
     }
 
     private fun setCardResult(cardResult: Boolean, cardViewModel: CardViewModel) {
@@ -154,7 +173,15 @@ class CardFragment : Fragment() {
             binding.btnArrowNext.visibility = View.VISIBLE
         }
 
-        Log.i("result", "AFT: " + resultList.size.toString())
+        // if true then give card design a greener touch if false then more redish
+        if(resultList[cardViewModel.currentCardText.value!!-1])
+        {
+            binding.backgroundCards.setImageResource(R.drawable.cards_background_right)
+        }
+        else
+        {
+            binding.backgroundCards.setImageResource(R.drawable.cards_background_wrong)
+        }
 
         cardViewModel.updateCardResult(resultList)
     }
