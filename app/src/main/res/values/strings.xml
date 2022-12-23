@@ -16,5 +16,8 @@
     <string name="label_current_card">CurrentCard</string>
     <string name="text_load_database">Lade DB from Json</string>
     <string name="text_delete_database">delete DB</string>
-    <string name="text_shuffleAll">shuffle all cards</string>
+    <string name="text_shuffleAll">Alle Karten verwenden (Mischen)</string>
+    <string name="btn_txt_use_christmas">Weihnachtsbegriffe verwenden</string>
+    <string name="btn_txt_use_standard_set">Standardset verwenden</string>
+    <string name="text_shuffleChristmas">Weihnachtskarten verwenden (Mischen)</string>
 </resources>

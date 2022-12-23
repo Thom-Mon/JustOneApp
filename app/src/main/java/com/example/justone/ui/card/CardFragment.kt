@@ -69,8 +69,20 @@ class CardFragment : Fragment() {
             setCardResult(false, cardViewModel)
         }
 
-        binding.card1Number.setOnClickListener {
+        binding.btnShuffleChristmasCards.setOnClickListener {
             getChristmasCards(cardViewModel)
+            binding.btnShuffleChristmasCards.visibility = View.INVISIBLE
+            binding.btnShuffleAllCard.visibility = View.INVISIBLE
+            binding.btnCancelShuffle.visibility = View.INVISIBLE
+            binding.darkenedBackground.visibility = View.INVISIBLE
+
+        }
+
+        binding.btnSettings.setOnClickListener {
+            binding.btnShuffleChristmasCards.visibility = View.VISIBLE
+            binding.btnShuffleAllCard.visibility = View.VISIBLE
+            binding.btnCancelShuffle.visibility = View.VISIBLE
+            binding.darkenedBackground.visibility = View.VISIBLE
         }
 
         // getting all Buttons and add a listener to them
@@ -123,8 +135,19 @@ class CardFragment : Fragment() {
 
         binding.btnShuffleAllCard.setOnClickListener {
             shuffleAllCards(cardViewModel)
+            binding.btnShuffleChristmasCards.visibility = View.INVISIBLE
+            binding.btnShuffleAllCard.visibility = View.INVISIBLE
+            binding.btnCancelShuffle.visibility = View.INVISIBLE
+            binding.darkenedBackground.visibility = View.INVISIBLE
+
         }
 
+        binding.btnCancelShuffle.setOnClickListener {
+            binding.btnShuffleChristmasCards.visibility = View.INVISIBLE
+            binding.btnShuffleAllCard.visibility = View.INVISIBLE
+            binding.btnCancelShuffle.visibility = View.INVISIBLE
+            binding.darkenedBackground.visibility = View.INVISIBLE
+        }
         // set the card words on start as shuffled
         if(cardViewModel.wordList.value?.size!! > 1)
         {

@@ -142,7 +142,24 @@
         android:layout_marginEnd="24dp"
         android:text="@string/text_shuffleAll"
         android:textSize="@dimen/btn_text_size"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_shuffleChristmasCards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/text_shuffleChristmas"
+        android:textSize="@dimen/btn_text_size"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_shuffleAllCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -194,6 +211,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_current_card" />
 
+    <ImageButton
+        android:id="@+id/btn_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_settings_50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <ImageView
+        android:id="@+id/darkened_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/darkened_background"
+        android:visibility="invisible"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_cancel_shuffle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_cancel_50"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_shuffleChristmasCards"
+        app:layout_constraintEnd_toEndOf="@+id/btn_shuffleChristmasCards" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

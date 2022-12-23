@@ -15,4 +15,5 @@
     <color name="color_card_3">#A93139</color>
     <color name="color_card_4">#EA8C31</color>
     <color name="color_card_5">#d6d631</color>
+    <color name="darkened_background">#BE000000</color>
 </resources>
