@@ -37,11 +37,6 @@ class CardViewModel : ViewModel() {
         currentCardText.value = (currentCardText.value)?.minus(1)
     }
 
-    fun setCardIndex(index: Int)
-    {
-        currentCardText.value = index
-    }
-
     fun addToWordList(word: MutableList<String>)
     {
         wordList.value = word

@@ -283,6 +283,7 @@ class CardFragment : Fragment() {
         setCardText(currentCardIndex)
         // save fragment wordlist to viewmodel to persist data
         cardViewModel.addToWordList(wordList)
+        resetGame(cardViewModel)
     }
 
     private fun shuffleSingleCard()
