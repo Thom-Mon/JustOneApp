@@ -37,6 +37,11 @@ class CardViewModel : ViewModel() {
         currentCardText.value = (currentCardText.value)?.minus(1)
     }
 
+    fun setCardIndex(index: Int)
+    {
+        currentCardText.value = index
+    }
+
     fun addToWordList(word: MutableList<String>)
     {
         wordList.value = word
@@ -51,6 +56,14 @@ class CardViewModel : ViewModel() {
     {
         cardResult.value = resultList
     }
+
+    fun resetCardResults()
+    {
+        chosenCardIndex.value = arrayListOf(5,5,5,5,5,5,5,5,5,5,5,5,5,5)
+        cardResult.value = ArrayList()
+        currentCardText.value = 1
+    }
+
 
     // next step is to fill the list with values for each card on startup or on a
     // mix button, each card should be possible to be reshuffled (maybe with limit 3 or

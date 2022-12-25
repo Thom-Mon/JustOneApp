@@ -238,12 +238,11 @@ class CardFragment : Fragment() {
         shuffle(wordList)
 
         // current Card to set card text appropiately
-        val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
+        //val currentCardIndex = Integer.parseInt(binding.labelCurrentCard.text as String)
 
-        // set the cards according to fragment wordlist
-        setCardText(currentCardIndex)
         // save fragment wordlist to viewmodel to persist data
         cardViewModel.addToWordList(wordList)
+        resetGame(cardViewModel)
     }
 
     // helper function
@@ -331,6 +330,15 @@ class CardFragment : Fragment() {
 
         chosenCard[currentCardIndex-1] = index
         cardViewModel.updateChosenCards(chosenCard)
+    }
+
+    private fun resetGame(cardViewModel: CardViewModel)
+    {
+        setCardText(1)
+        cardViewModel.resetCardResults()
+        chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
+        resultList = cardViewModel.cardResult.value as MutableList<Boolean>
+
     }
 
 
