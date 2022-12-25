@@ -71,18 +71,11 @@ class CardFragment : Fragment() {
 
         binding.btnShuffleChristmasCards.setOnClickListener {
             getChristmasCards(cardViewModel)
-            binding.btnShuffleChristmasCards.visibility = View.INVISIBLE
-            binding.btnShuffleAllCard.visibility = View.INVISIBLE
-            binding.btnCancelShuffle.visibility = View.INVISIBLE
-            binding.darkenedBackground.visibility = View.INVISIBLE
-
+            toggleShuffleMenue(View.INVISIBLE)
         }
 
         binding.btnSettings.setOnClickListener {
-            binding.btnShuffleChristmasCards.visibility = View.VISIBLE
-            binding.btnShuffleAllCard.visibility = View.VISIBLE
-            binding.btnCancelShuffle.visibility = View.VISIBLE
-            binding.darkenedBackground.visibility = View.VISIBLE
+            toggleShuffleMenue(View.VISIBLE)
         }
 
         // getting all Buttons and add a listener to them
@@ -135,18 +128,11 @@ class CardFragment : Fragment() {
 
         binding.btnShuffleAllCard.setOnClickListener {
             shuffleAllCards(cardViewModel)
-            binding.btnShuffleChristmasCards.visibility = View.INVISIBLE
-            binding.btnShuffleAllCard.visibility = View.INVISIBLE
-            binding.btnCancelShuffle.visibility = View.INVISIBLE
-            binding.darkenedBackground.visibility = View.INVISIBLE
-
+            toggleShuffleMenue(View.INVISIBLE)
         }
 
         binding.btnCancelShuffle.setOnClickListener {
-            binding.btnShuffleChristmasCards.visibility = View.INVISIBLE
-            binding.btnShuffleAllCard.visibility = View.INVISIBLE
-            binding.btnCancelShuffle.visibility = View.INVISIBLE
-            binding.darkenedBackground.visibility = View.INVISIBLE
+            toggleShuffleMenue(View.INVISIBLE)
         }
         // set the card words on start as shuffled
         if(cardViewModel.wordList.value?.size!! > 1)
@@ -289,6 +275,14 @@ class CardFragment : Fragment() {
     private fun shuffleSingleCard()
     {
 
+    }
+
+    private fun toggleShuffleMenue(visibility: Int)
+    {
+        binding.btnShuffleChristmasCards.visibility = visibility
+        binding.btnShuffleAllCard.visibility = visibility
+        binding.btnCancelShuffle.visibility = visibility
+        binding.darkenedBackground.visibility =visibility
     }
 
     private fun setCardText(currentCardIndex : Int)
