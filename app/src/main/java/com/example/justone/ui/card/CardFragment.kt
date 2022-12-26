@@ -284,6 +284,7 @@ class CardFragment : Fragment() {
         binding.btnCancelShuffle.visibility = visibility
         binding.darkenedBackground.visibility =visibility
         binding.infoBoxButton.visibility = visibility
+        binding.backgroundCircle.visibility = visibility
     }
 
     private fun setCardText(currentCardIndex : Int)

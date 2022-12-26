@@ -207,6 +207,8 @@
         android:text="@string/text_shuffleChristmas"
         android:textSize="@dimen/btn_text_size"
         android:visibility="invisible"
+        app:strokeColor="@color/black"
+        app:strokeWidth="4sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_shuffleAllCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -224,6 +226,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="4sp"
         />
 
     <ImageView
@@ -251,7 +255,15 @@
         app:strokeWidth="4sp"
 
         />
-
+    <ImageView
+        android:id="@+id/background_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/info_box_button"
+        app:layout_constraintEnd_toEndOf="@+id/btn_shuffleChristmasCards"
+        />
     <ImageButton
         android:id="@+id/btn_cancel_shuffle"
         android:layout_width="wrap_content"
