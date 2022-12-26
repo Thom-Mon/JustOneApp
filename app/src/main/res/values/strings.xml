@@ -20,4 +20,5 @@
     <string name="btn_txt_use_christmas">Weihnachtsbegriffe verwenden</string>
     <string name="btn_txt_use_standard_set">Standardset verwenden</string>
     <string name="text_shuffleChristmas">Weihnachtskarten verwenden (Mischen)</string>
+    <string name="info_box_text">Wählen Sie ihr Kartenset</string>
 </resources>

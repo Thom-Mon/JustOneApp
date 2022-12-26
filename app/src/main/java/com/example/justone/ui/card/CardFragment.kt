@@ -283,6 +283,7 @@ class CardFragment : Fragment() {
         binding.btnShuffleAllCard.visibility = visibility
         binding.btnCancelShuffle.visibility = visibility
         binding.darkenedBackground.visibility =visibility
+        binding.infoBoxButton.visibility = visibility
     }
 
     private fun setCardText(currentCardIndex : Int)
@@ -333,6 +334,8 @@ class CardFragment : Fragment() {
         cardViewModel.resetCardResults()
         chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
         resultList = cardViewModel.cardResult.value as MutableList<Boolean>
+
+        binding.btnArrowBack.visibility = View.VISIBLE
 
     }
 
