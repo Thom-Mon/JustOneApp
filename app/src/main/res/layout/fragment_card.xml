@@ -18,7 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/label_current_card"
@@ -163,25 +164,26 @@
         android:id="@+id/btn_correct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="75dp"
+        android:layout_marginTop="10dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_check_circle_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_current_card" />
+        app:layout_constraintTop_toBottomOf="@+id/background_Cards" />
 
     <ImageButton
         android:id="@+id/btn_wrong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="16dp"
         android:background="@null"
+        android:elevation="1dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_baseline_cancel_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_current_card" />
+        app:layout_constraintTop_toBottomOf="@+id/background_Cards" />
 
 
 
@@ -235,8 +237,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/darkened_background"
-        android:visibility="invisible"
-        />
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/info_box_button"
@@ -274,6 +277,14 @@
         app:layout_constraintBottom_toTopOf="@+id/info_box_button"
         app:layout_constraintEnd_toEndOf="@+id/btn_shuffleChristmasCards" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/result_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="15dp"
+        android:text="Auswertung"
 
-
+        app:layout_constraintTop_toBottomOf="@+id/btn_correct"
+        app:strokeColor="@color/color_card_3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

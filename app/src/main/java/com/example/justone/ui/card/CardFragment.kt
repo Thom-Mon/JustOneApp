@@ -1,12 +1,18 @@
 package com.example.justone.ui.card
 
+import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -95,6 +101,7 @@ class CardFragment : Fragment() {
         }
 
         binding.btnArrowBack.setOnClickListener {
+            Log.e("mark_" , cardViewModel.currentCardText.value.toString())
             if(cardViewModel.currentCardText.value!! > 1)
             {
                 cardViewModel.updateCardIndexNegative()
@@ -103,6 +110,15 @@ class CardFragment : Fragment() {
                 {
                     binding.btnArrowNext.visibility = View.VISIBLE
                 }
+                if(cardViewModel.currentCardText.value!! == 1)
+                {
+                    binding.btnArrowBack.visibility = View.INVISIBLE
+                }
+            }
+            else
+            {
+                Log.i("mark_" , "Should Be invisible now is ONE")
+
             }
             chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
             setCardText(cardViewModel.currentCardText.value!!)
@@ -118,6 +134,10 @@ class CardFragment : Fragment() {
                 if(cardViewModel.currentCardText.value!!-1 !in resultList.indices)
                 {
                     binding.btnArrowNext.visibility = View.INVISIBLE
+                }
+                if(cardViewModel.currentCardText.value!! > 1)
+                {
+                    binding.btnArrowBack.visibility = View.VISIBLE
                 }
             }
             chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
@@ -153,6 +173,10 @@ class CardFragment : Fragment() {
             Log.i("chosenSize Before", chosenCard.size.toString())
         }
 
+        binding.resultButton.setOnClickListener {
+            openResultsDialog(requireContext(), R.layout.form_result_dialog)
+        }
+
         return root
     }
 
@@ -174,29 +198,29 @@ class CardFragment : Fragment() {
     }
 
     private fun setCardResult(cardResult: Boolean, cardViewModel: CardViewModel) {
-        Log.i("result", "BEF: " + resultList.size.toString())
+            if(wordList.size > 1)
+            {
+                if (cardViewModel.currentCardText.value!! - 1 in resultList.indices) {
+                    resultList[cardViewModel.currentCardText.value!! - 1] = cardResult
+                } else {
+                    resultList.add(cardResult)
+                    if(cardViewModel.currentCardText.value!! == 13){
+                        binding.resultButton.visibility = View.VISIBLE
+                    }
+                    else
+                    {
+                        binding.btnArrowNext.visibility = View.VISIBLE
+                    }
+                }
 
-        if(cardViewModel.currentCardText.value!!-1 in resultList.indices)
-        {
-            resultList[cardViewModel.currentCardText.value!!-1] = cardResult
-        }
-        else
-        {
-            resultList.add(cardResult)
-            binding.btnArrowNext.visibility = View.VISIBLE
-        }
-
-        // if true then give card design a greener touch if false then more redish
-        if(resultList[cardViewModel.currentCardText.value!!-1])
-        {
-            binding.backgroundCards.setImageResource(R.drawable.cards_background_right)
-        }
-        else
-        {
-            binding.backgroundCards.setImageResource(R.drawable.cards_background_wrong)
-        }
-
-        cardViewModel.updateCardResult(resultList)
+                // if true then give card design a greener touch if false then more redish
+                if (resultList[cardViewModel.currentCardText.value!! - 1]) {
+                    binding.backgroundCards.setImageResource(R.drawable.cards_background_right)
+                } else {
+                    binding.backgroundCards.setImageResource(R.drawable.cards_background_wrong)
+                }
+                cardViewModel.updateCardResult(resultList)
+            }
     }
 
 
@@ -239,15 +263,10 @@ class CardFragment : Fragment() {
     private fun shuffleAllCards(cardViewModel: CardViewModel) {
         // clear wordList to fill with new Words
         wordList.clear();
-
         // need to get the size of the roomdb here! from thread
-
-
         // get randomList from cards avaiable and  take at least 80
         randomList = (0..1500).shuffled().take(80) as MutableList<Int>
-
         var cards: List<Card>
-
         val thread = Thread {
             cards = appDb.cardDao().findByIds(randomList)
 
@@ -282,7 +301,7 @@ class CardFragment : Fragment() {
         binding.btnShuffleChristmasCards.visibility = visibility
         binding.btnShuffleAllCard.visibility = visibility
         binding.btnCancelShuffle.visibility = visibility
-        binding.darkenedBackground.visibility =visibility
+        binding.darkenedBackground.visibility = visibility
         binding.infoBoxButton.visibility = visibility
         binding.backgroundCircle.visibility = visibility
     }
@@ -336,7 +355,7 @@ class CardFragment : Fragment() {
         chosenCard = cardViewModel.chosenCardIndex.value as MutableList<Int>
         resultList = cardViewModel.cardResult.value as MutableList<Boolean>
 
-        binding.btnArrowBack.visibility = View.VISIBLE
+        binding.btnArrowBack.visibility = View.INVISIBLE
 
     }
 
@@ -368,4 +387,19 @@ class CardFragment : Fragment() {
         _binding = null
     }
 
+    private fun openResultsDialog(context: Context,layoutId: Int,){
+        val dialogView = LayoutInflater.from(context).inflate(layoutId, null)
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        //val editText: EditText = dialogView.findViewById(R.id.editText)
+        //val saveButton: Button = dialogView.findViewById(R.id.saveButton)
+
+        // Set the initial text in the EditText
+        //editText.setText(initialText)
+
+        dialog.show()
+    }
 }

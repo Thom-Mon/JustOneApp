@@ -10,6 +10,4 @@ data class Card(
     @ColumnInfo(name = "word") val word: String?,
     @ColumnInfo(name = "tags") val tags: String?,
     @ColumnInfo(name = "difficulty") val difficulty: Int?
-
-
 )
